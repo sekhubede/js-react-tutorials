@@ -1,0 +1,24 @@
+<body>
+  <!-- Set the root element -->
+  <div id="root"></div>
+
+  <!-- Get react using unpkg for react element manipulation -->
+  <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+
+  <!-- Get react-dom using unpkg for react element rendering -->
+  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+
+  <!-- Get babel using unpkg for jsx compilation -->
+  <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+
+  <script type="text/babel">
+    // Get root element
+    const rootElement = document.getElementById("root");
+
+    // Use jsx to create react element
+    const element = <div className="container">Hello World!</div>;
+
+    // Use react-dom to render element
+    ReactDOM.render(element, rootElement);
+  </script>
+</body>

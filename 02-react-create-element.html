@@ -1,0 +1,23 @@
+<body>
+  <div id="root"></div>
+
+  <!-- Get react file using unpkg for react element creation -->
+  <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+  <!-- Get react-dom file using unpkg react element rendering -->
+  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+
+  <script type="text/javascript">
+    // Get root element
+    const rootElement = document.getElementById("root");
+
+    // Create react element
+    const element = React.createElement(
+      "div",
+      { className: "conatiner" },
+      "Hello World"
+    );
+
+    // Render element with react
+    ReactDOM.render(element, rootElement);
+  </script>
+</body>
