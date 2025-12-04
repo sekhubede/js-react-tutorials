@@ -16,7 +16,7 @@
             <label htmlFor="name">Name:</label>
             <input id="name" onChange={onNameChange} />
           </form>
-          {name ? `Hello ${name}` : "Please type your name"}
+          {name ? <strong>Hello {name}</strong> : "Please type your name"}
         </>
       );
     }
