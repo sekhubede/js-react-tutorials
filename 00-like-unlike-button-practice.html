@@ -1,0 +1,62 @@
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  <style>
+    button {
+      width: 70;
+      height: 30;
+    }
+  </style>
+  <script type="text/babel">
+    function Content(props) {
+      return (
+        <>
+          <h1>{props.title}</h1>
+          <p>{props.text}</p>
+        </>
+      );
+    }
+
+    function Button() {
+      const colors = { blue: "lightblue", white: "white" };
+
+      const [like, setLike] = React.useState({
+        value: false,
+        count: 0,
+        color: colors.white
+      });
+
+      const handleClick = () => {
+        setLike((prev) => {
+          const newValue = !prev.value;
+          return {
+            value: !prev.value,
+            count: prev.count + 1,
+            color: newValue ? colors.blue : colors.white
+          };
+        });
+      };
+
+      return (
+        <>
+          <button onClick={handleClick} style={{ backgroundColor: like.color }}>
+            👍🏽 {like.count}
+          </button>
+        </>
+      );
+    }
+
+    function App() {
+      return (
+        <>
+          <Content title="Blog Post" text="This is my first blog post." />
+          <Button />
+        </>
+      );
+    }
+    ReactDOM.render(<App />, document.getElementById("root"));
+  </script>
+</body>
