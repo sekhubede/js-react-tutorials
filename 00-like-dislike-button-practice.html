@@ -19,7 +19,7 @@
       justify-content: center;
       background-color: #f0f1f3;
     }
-    .btn-container {
+    .button__container {
       display: flex;
       flex-direction: "row";
       align-items: center;
@@ -27,7 +27,7 @@
       padding: 30px 50px;
       border-radius: 120x;
     }
-    .btn {
+    button {
       border: none;
       color: #394350;
       font-size: 0.8rem;
@@ -40,45 +40,87 @@
       margin: 0 10px;
     }
 
-    .like-active {
+    .button--like-active {
       color: #012a30;
       background-color: #cdf6fc;
     }
 
-    .dislike-active {
+    .button--dislike-active {
       color: #ffffff;
       background-color: #4d5662;
     }
   </style>
   <script type="text/babel">
-    function Button(props) {
-      const [like, setLike] = React.useState({
-        value: false,
-        count: 0
-      });
+    function App() {
+      const buttonType = {
+        like: "like",
+        dislike: "dislike",
+        none: "none"
+      };
 
-      const handleClick = () => {
-        setLike((prev) => {
-          return {
-            count: prev.count + 1
-          };
-        });
+      const [likeCount, setLikeCount] = React.useState(50);
+      const [dislikeCount, setDislikeCount] = React.useState(25);
+      const [activeButton, setActiveButton] = React.useState(buttonType.none);
+
+      const handleReactionClick = (reaction) => {
+        if (activeButton === buttonType.none) {
+          if (reaction === buttonType.like) {
+            setLikeCount((prev) => prev + 1);
+            setActiveButton(reaction);
+          }
+
+          if (reaction === buttonType.dislike) {
+            setDislikeCount((prev) => prev + 1);
+            setActiveButton(reaction);
+          }
+        }
+
+        if (activeButton === buttonType.like) {
+          if (reaction === buttonType.like) {
+            setLikeCount((prev) => prev - 1);
+            setActiveButton(buttonType.none);
+          }
+
+          if (reaction === buttonType.dislike) {
+            setDislikeCount((prev) => prev + 1);
+            setLikeCount((prev) => prev - 1);
+            setActiveButton(reaction);
+          }
+        }
+
+        if (activeButton === buttonType.dislike) {
+          if (reaction === buttonType.dislike) {
+            setDislikeCount((prev) => prev - 1);
+            setActiveButton(buttonType.none);
+          }
+
+          if (reaction === buttonType.like) {
+            setLikeCount((prev) => prev + 1);
+            setDislikeCount((prev) => prev - 1);
+            setActiveButton(reaction);
+          }
+        }
       };
 
       return (
-        <>
-          <button onClick={handleClick}>
-            {props.icon} {props.text} {like.count}
-          </button>
-        </>
-      );
-    }
-
-    function App() {
-      return (
-        <>
-          <Button icon="👍🏽" text="Like" />
-        </>
+        <div className="container">
+          <div className="button__container">
+            <button
+              className={activeButton === "like" ? "button--like-active" : ""}
+              onClick={() => handleReactionClick("like")}
+            >
+              <span>👍🏽</span> Like {likeCount}
+            </button>
+            <button
+              className={
+                activeButton === "dislike" ? "button--dislike-active" : ""
+              }
+              onClick={() => handleReactionClick("dislike")}
+            >
+              <span>👎🏽</span> Dislike {dislikeCount}
+            </button>
+          </div>
+        </div>
       );
     }
 
